@@ -9,6 +9,9 @@ const { authFacebook } = require("../controllers/signin/facebookController")
 const commonRouter = Router();
 
 
+commonRouter.get("/", (req,res)=>{
+    res.send('OK')
+})
 commonRouter.post("/getgrounds", getGrounds)
 
 commonRouter.post("/sendotp", sendOTP)

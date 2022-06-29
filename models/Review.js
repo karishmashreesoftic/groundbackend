@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
 
-    ground:{
+    groundid:{
         type: mongoose.Schema.Types.ObjectId, ref:'Ground'
     },
     userid:{
