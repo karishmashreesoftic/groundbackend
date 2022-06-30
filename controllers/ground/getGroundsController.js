@@ -23,14 +23,14 @@ function findData(data) {
         }
         q.push({"address" : c})
     }
-    if(data.state!==0){
+    if(data.state.length!==0){
         let s = {
             $regex: data.state,
             $options: "i"
         }
         q.push({"address" : s})
     }
-    if(data.location!==0){
+    if(data.location.length!==0){
         let l = []
         let locationarray = data.location.split(",")
         locationarray.forEach(element => {
@@ -38,10 +38,10 @@ function findData(data) {
         });
         q.push({$or: l})
     }
-    if(data.price!==0){
+    if(data.price.length!==0){
         q.push({"price": data.price})
     }
-    if(data.rating!==0){
+    if(data.rating.length!==0){
         q.push({"rating": data.rating})
     }
 
