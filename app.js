@@ -4,13 +4,14 @@ const bodyParser = require('body-parser');
 const userRouter = require("./routes/userRoutes");
 const ownerRouter = require("./routes/ownerRoutes");
 const commonRouter = require("./routes/commonRoutes");
+
+
 const app = express();
 const connectToMongo = require("./db");
 const dotenv = require("dotenv");
 dotenv.config({path:"config/config.env"})
 
 const port = process.env.PORT || 5000;
-
 connectToMongo();
 
 app.use(bodyParser.urlencoded({ extended: false }));

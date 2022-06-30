@@ -4,7 +4,7 @@ function findData(data) {
 
     let q = []
 
-    if(data.sports){
+    if(data.sports.length!==0){
         let sp = []
         let sportsarray = String(data.sports).toLowerCase().split(",")
         sportsarray.forEach(element => {
@@ -16,21 +16,21 @@ function findData(data) {
         });
         q.push({$or: sp})
     }
-    if(data.country){
+    if(data.country.length!==0){
         let c = {
             $regex: data.country,
             $options: "i"
         }
         q.push({"address" : c})
     }
-    if(data.state){
+    if(data.state!==0){
         let s = {
             $regex: data.state,
             $options: "i"
         }
         q.push({"address" : s})
     }
-    if(data.location){
+    if(data.location!==0){
         let l = []
         let locationarray = data.location.split(",")
         locationarray.forEach(element => {
@@ -38,10 +38,10 @@ function findData(data) {
         });
         q.push({$or: l})
     }
-    if(data.price){
+    if(data.price!==0){
         q.push({"price": data.price})
     }
-    if(data.rating){
+    if(data.rating!==0){
         q.push({"rating": data.rating})
     }
 

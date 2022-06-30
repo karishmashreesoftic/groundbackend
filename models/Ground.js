@@ -23,7 +23,7 @@ const groundSchema = new mongoose.Schema({
         required: true
     },
     price:{
-        type: Number,
+        type: String,
         required: true
     },
     address:{
@@ -35,7 +35,7 @@ const groundSchema = new mongoose.Schema({
         required: true
     },
     rating:{
-        type: Number,
+        type: String,
         default: 0
     },
     photos: [{
