@@ -6,7 +6,7 @@ function findData(data) {
 
     if(data.sports){
         let sp = []
-        let sportsarray = data.sports.split(",")
+        let sportsarray = String(data.sports).toLowerCase().split(",")
         sportsarray.forEach(element => {
             let tsp = {
                 $regex: element,
@@ -34,7 +34,7 @@ function findData(data) {
         let l = []
         let locationarray = data.location.split(",")
         locationarray.forEach(element => {
-            l.push({"location": element})
+            l.push({"location": { $regex : element, $options: "i" }})
         });
         q.push({$or: l})
     }
