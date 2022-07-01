@@ -11,7 +11,7 @@ exports.addGround = async(req, res) => {
 
     try{
 
-        // const data = req.body
+        const data = req.body
         // const lang = process.env.LANGUAGE
 
         let p_array = []
