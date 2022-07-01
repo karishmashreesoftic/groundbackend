@@ -3,11 +3,16 @@ const cloudinary = require("../../utils/cloudinary")
 const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
-const { translate } = require("../../utils/translate")
+//const { translate } = require("../../utils/translate")
+const dotenv = require("dotenv");
+dotenv.config({path:"config/config.env"})
 
 exports.addGround = async(req, res) => {
 
     try{
+
+        // const data = req.body
+        // const lang = process.env.LANGUAGE
 
         let p_array = []
         for (let index = 0; index < req.files.length; index++) {
@@ -18,28 +23,34 @@ exports.addGround = async(req, res) => {
             await unlinkAsync(element)
         }
 
+        // if(lang==='ar'){
+        //     for(let i in data){
+        //         if(i!=='price' && i!=='starttime' && i!=='endtime'){
+        //             data[i] = await translate.translate(data[i],'en')
+        //         }
+        //     }
+        // }
+
         let temp = {
-            groundname : req.body.groundname,
-            location: req.body.location,
-            ownername: req.body.ownername,
-            starttime: req.body.starttime,
-            endtime: req.body.endtime,
-            price: req.body.price,
-            address: req.body.address,
-            description: req.body.description,
+            ...data,
             photos: p_array
         }
 
         const ground = new Ground(temp)
         await ground.save()
 
-        let temp_ar = {
-            "groundname": "Ground 2",
-            "location": "Katargam",
-            "ownername": "Owner 2",
-            "address": "Gujarat, India",
-            "description": "Cricket, Football",
-        }
+        // if(lang!=='ar'){
+        //     let ground_ar = {
+        //         ...ground,
+        //         groundname: await translate.translate(ground.groundname,lang),
+        //         location: await translate.translate(ground.location,lang),
+        //         ownername: await translate.translate(ground.ownername,lang),
+        //         address: await translate.translate(ground.address,lang),
+        //         description: await translate.translate(ground.description,lang),
+        //     }
+        //     res.status(201).send(ground_ar)
+        // }
+            
 
         res.status(201).send(ground)
 

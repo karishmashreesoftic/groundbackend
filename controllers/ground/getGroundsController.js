@@ -1,4 +1,7 @@
+// const { translate } = require("../../utils/translate")
 const Ground = require("../../models/Ground")
+const dotenv = require("dotenv");
+dotenv.config({path:"config/config.env"})
 
 function findData(data) {
 
@@ -50,16 +53,37 @@ function findData(data) {
 
 exports.getGrounds = async(req, res) => {
     try{
+        // const lang = process.env.LANGUAGE
         let data = req.body
         let query = {}
+
         if(data!==null){
+            // if(lang=='ar'){
+            //     for(let i in data){
+            //         if(i!=='price' && i!=='rating'){
+            //             data[i] = await translate.translate(data[i],'en')
+            //         }
+            //     }
+            // }
             let temp = findData(data)
             query = {$and : temp}
         }
+
         const grounds = await Ground.find(query).select("groundname location rating photos").sort({"rating":"asc"});
         if(!grounds){
             throw new Error("No record found for this filter combination!")
         }
+
+        // if(lang=='ar'){
+        //     for(let ground in grounds){
+        //         for(let i in ground){
+        //             if(i!=='_id' && i!=="rating"){
+        //                 grounds[ground][i] = await translate.translate(grounds[ground][i],lang)
+        //             }
+        //         }
+        //     }
+        // }
+
         res.status(201).send(grounds)
 
     }catch(error){
