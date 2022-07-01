@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require("cors")
+const path = require("path")
 const bodyParser = require('body-parser');
 const userRouter = require("./routes/userRoutes");
 const ownerRouter = require("./routes/ownerRoutes");
