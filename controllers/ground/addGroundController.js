@@ -3,8 +3,10 @@ const cloudinary = require("../../utils/cloudinary")
 const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
+const { translate } = require("../../utils/translate")
 
 exports.addGround = async(req, res) => {
+
     try{
 
         let p_array = []
@@ -30,6 +32,15 @@ exports.addGround = async(req, res) => {
 
         const ground = new Ground(temp)
         await ground.save()
+
+        let temp_ar = {
+            "groundname": "Ground 2",
+            "location": "Katargam",
+            "ownername": "Owner 2",
+            "address": "Gujarat, India",
+            "description": "Cricket, Football",
+        }
+
         res.status(201).send(ground)
 
     }catch(error){
