@@ -7,6 +7,7 @@ const { authApple } = require("../controllers/signin/appleController");
 const { authFacebook } = require("../controllers/signin/facebookController")
 const { auth } = require('../middleware/auth');
 const { changeLanguage } = require("../controllers/changeLanguageController");
+const { deleteAccount } = require("../controllers/deleteAccountController");
 
 
 const commonRouter = Router();
@@ -29,5 +30,7 @@ commonRouter.post("/changelang",changeLanguage)
 
 commonRouter.get("/logout", auth, logout)
 commonRouter.get("/logoutall", auth, logoutAll)
+
+commonRouter.delete("/deleteaccount", auth, deleteAccount)
 
 module.exports = commonRouter;

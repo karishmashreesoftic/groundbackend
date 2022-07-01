@@ -14,6 +14,9 @@ const groundSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ownerid:{
+        type: mongoose.Schema.Types.ObjectId, ref:'User'
+    },
     starttime:{
         type: String,
         required: true
