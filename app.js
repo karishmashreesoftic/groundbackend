@@ -15,7 +15,6 @@ const connectToMongo = require("./db");
 const port = process.env.PORT || 5000;
 connectToMongo();
 
-app.use(express.static(__dirname + '/public'));
 app.use('/photos', express.static(path.join(__dirname, '/photos')))
 //app.use('/photos', express.static('/photos'));
 
