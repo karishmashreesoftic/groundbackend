@@ -14,12 +14,13 @@ const connectToMongo = require("./db");
 const port = process.env.PORT || 5000;
 connectToMongo();
 
+app.use(express.static(__dirname + '/public'));
+app.use('/photos', express.static('photos'));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cors());
 
-app.use(express.static(__dirname + '/public'));
-app.use('/photos', express.static('photos'));
 
 app.use(userRouter);
 app.use(ownerRouter);

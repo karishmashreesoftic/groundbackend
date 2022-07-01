@@ -11,7 +11,7 @@ exports.addGround = async(req, res) => {
 
     try{
 
-        const data = req.body
+        //const data = req.body
         // const lang = process.env.LANGUAGE
 
         let p_array = []
@@ -32,7 +32,14 @@ exports.addGround = async(req, res) => {
         // }
 
         let temp = {
-            ...data,
+            groundname: req.body.groundname,
+            location: req.body.location,
+            ownername: req.body.ownername,
+            starttime: req.body.starttime,
+            endtime: req.body.endtime,
+            price: req.body.price,
+            address: req.body.address,
+            description: req.body.description,
             photos: p_array
         }
 
