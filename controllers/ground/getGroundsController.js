@@ -35,8 +35,8 @@ function findData(data) {
     }
     if(data.location.length!==0){
         let l = []
-        let locationarray = data.location.split(",")
-        locationarray.forEach(element => {
+        //let locationarray = data.location.split(",")
+        data.location.forEach(element => {
             l.push({"location": { $regex : element, $options: "i" }})
         });
         q.push({$or: l})
