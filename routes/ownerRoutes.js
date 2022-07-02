@@ -4,12 +4,14 @@ const { getOwnerGroundDetail } = require("../controllers/ground/getOwnerGroundDe
 const { upload } = require("../utils/multer")
 const { auth } = require('../middleware/auth')
 const { deleteGround } = require("../controllers/ground/deleteGroundController")
+const { getOwnedGrounds } = require("../controllers/ground/getOwnedGroundsController")
 
 const ownerRouter = Router();
 
 
 ownerRouter.post("/addground", auth, upload.array('photos'), addGround)
 ownerRouter.get("/getownergrounddetail/:id", auth, getOwnerGroundDetail)
+ownerRouter.get("/getownedgrounds", auth, getOwnedGrounds)
 ownerRouter.delete("/deleteground/:id", auth, deleteGround)
 
 

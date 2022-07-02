@@ -20,14 +20,14 @@ exports.addGround = async(req, res) => {
             for (let index = 0; index < req.files.length; index++) {
                 const element = req.files[index].path;
                 const image = await cloudinary.uploader.upload(element,{folder: 'groundphotos'})
-                const photo = {photoid: image.public_id, photourl: image.secure_url, photothumbnail: image.secure_url.replace("/image/upload","/image/upload/c_fill,w_350,h_300")}
+                const photo = {photoid: image.public_id, photourl: image.secure_url, photothumbnail: image.secure_url.replace("/image/upload","/image/upload/c_limit,w_350,h_200")}
                 p_array.push(photo)
                 await unlinkAsync(element)
             }
 
             // if(lang==='ar'){
             //     for(let i in data){
-            //         if(i!=='price' && i!=='starttime' && i!=='endtime'){
+            //         if(i!=='price' && i!=='starttime' && i!=='endtime' && i!=="photos"){
             //             data[i] = await translate.translate(data[i],'en')
             //         }
             //     }

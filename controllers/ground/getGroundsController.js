@@ -77,7 +77,7 @@ exports.getGrounds = async(req, res) => {
         // if(lang=='ar'){
         //     for(let ground in grounds){
         //         for(let i in ground){
-        //             if(i!=='_id' && i!=="rating"){
+        //             if(i!=='_id' && i!=="rating" && i!=="photos"){
         //                 grounds[ground][i] = await translate.translate(grounds[ground][i],lang)
         //             }
         //         }

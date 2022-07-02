@@ -22,13 +22,16 @@ exports.getOwnerGroundDetail = async(req, res) => {
 
         // if(lang==='ar'){
         //     for(let i in ground){
-        //         if(i!=='_id' && i!=='starttime' && i!=='endtime' && i!=='price' && i!=='rating'){
+        //         if(i!=='_id' && i!=='starttime' && i!=='endtime' && i!=='price' && i!=='rating' && i!=='photos'){
         //             ground[i] = await translate.translate(ground[i],lang)
         //         }
         //     }
         //     for(let review in reviews){
         //         for(let i in review){
         //             if(i!=='_id' && i!=="rate" && i!=='time'){
+        //                     if(i==="userid"){
+        //                         reviews[review][i]["name"] = await translate.translate(reviews[review][i]["name"],lang)
+        //                     }
         //                 reviews[review][i] = await translate.translate(reviews[review][i],lang)
         //             }
         //         }
