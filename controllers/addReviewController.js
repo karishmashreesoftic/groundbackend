@@ -15,7 +15,6 @@ exports.addReview = async(req, res) => {
                 ...data,
                 userid: req.user._id
             }
-            console.log(data)
 
             // if(lang==="ar"){
             //     for(let i in data){
@@ -31,8 +30,8 @@ exports.addReview = async(req, res) => {
             if(!g){
                 throw new Error("Ground not Found !")
             }
-
-            let newrating = g.rating===0 ? data.rate : (data.rate+g.rating)/2
+            
+            let newrating = g.rating==="0" ? data.rate : (Number(data.rate)+Number(g.rating))/2
             newrating = parseFloat(newrating.toFixed(1))
             await Ground.findByIdAndUpdate(gid,{rating: newrating},{new:true})
 

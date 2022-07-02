@@ -14,6 +14,9 @@ exports.deleteAccount = async(req,res) => {
                 const grounds = await Ground.deleteMany({ownerid: account._id})
                 for(let ground in grounds){
                     await Review.deleteMany({groundid: ground._id})
+                    for(let i in ground.photos){
+                        cloudinary.uploader.destroy(ground.photos[i].photoid);
+                    }
                 }
             }
             
