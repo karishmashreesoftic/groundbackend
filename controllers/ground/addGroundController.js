@@ -1,9 +1,12 @@
 const Ground = require("../../models/Ground")
 const cloudinary = require("../../utils/cloudinary")
+// const LanguageDetect = require('languagedetect');
+// const lngDetector = new LanguageDetect();
+// lngDetector.setLanguageType("iso2")
 const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
-//const { translate } = require("../../utils/translate")
+// const { translate } = require("../../utils/translate")
 const dotenv = require("dotenv");
 dotenv.config({path:"config/config.env"})
 
@@ -28,7 +31,9 @@ exports.addGround = async(req, res) => {
             // if(lang==='ar'){
             //     for(let i in data){
             //         if(i!=='price' && i!=='starttime' && i!=='endtime' && i!=="photos"){
-            //             data[i] = await translate.translate(data[i],'en')
+            //             if(lngDetector.detect(data[i],1)[0][0]=="ar"){
+            //                 data[i] = await translate.translate(data[i],'en')
+            //             }
             //         }
             //     }
             // }

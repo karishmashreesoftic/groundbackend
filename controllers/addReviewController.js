@@ -1,6 +1,8 @@
 const Ground = require("../models/Ground")
 const Review = require("../models/Review")
 // const { translate } = require("../../utils/translate")
+// const LanguageDetect = require('languagedetect');
+// const lngDetector = new LanguageDetect();
 const dotenv = require("dotenv");
 dotenv.config({path:"config/config.env"})
 
@@ -19,7 +21,9 @@ exports.addReview = async(req, res) => {
             // if(lang==="ar"){
             //     for(let i in data){
             //         if(i==="review" || i==="location"){
-            //             data[i] = await translate.translate(data[i],'en')
+            //             if(lngDetector.detect(data[i],1)[0][0]=="ar"){
+            //                 data[i] = await translate.translate(data[i],'en')
+            //             }
             //         }
             //     }
             // }
