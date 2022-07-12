@@ -8,6 +8,8 @@ const { authFacebook } = require("../controllers/signin/facebookController")
 const { auth } = require('../middleware/auth');
 const { changeLanguage } = require("../controllers/changeLanguageController");
 const { deleteAccount } = require("../controllers/deleteAccountController");
+const { sendConfirmation } = require("../controllers/notification/confirmationController");
+const { sendNotification } = require("../controllers/notification/notificationController");
 
 
 const commonRouter = Router();
@@ -27,6 +29,9 @@ commonRouter.get("/auth/facebook/:userType/:idToken", authFacebook)
 commonRouter.post("/getgrounds", getGrounds)
 
 commonRouter.post("/changelang",changeLanguage)
+
+commonRouter.post("/sendnotification", auth, sendNotification)
+commonRouter.post("/sendconfirmation", auth, sendConfirmation)
 
 commonRouter.get("/logout", auth, logout)
 commonRouter.get("/logoutall", auth, logoutAll)
