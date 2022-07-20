@@ -12,7 +12,11 @@ const teamSchema = new mongoose.Schema({
         memberid: {
             type: mongoose.Schema.Types.ObjectId, ref:'User'
         }
-    }]
+    }],
+    createdat:{
+        type: Date,
+        default: new Date()
+    }
 })
 
 const Team = mongoose.model('Team',teamSchema)

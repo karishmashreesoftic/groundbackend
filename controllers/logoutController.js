@@ -5,8 +5,13 @@ exports.logout = async(req,res) =>{
         const updated_tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
-        await User.findOneAndUpdate({_id: req.user._id},{tokens: updated_tokens})
-        res.status(200).send()
+        if(updated_tokens.length===0){
+            await User.findOneAndUpdate({_id: req.user._id},{tokens: updated_tokens, status:"Inactive"})
+        }else{
+            await User.findOneAndUpdate({_id: req.user._id},{tokens: updated_tokens, status:"Active"})
+        }
+        
+        res.sendStatus(200)
     }catch(error){
         res.send({error: error.message})
     } 
@@ -14,8 +19,8 @@ exports.logout = async(req,res) =>{
 
 exports.logoutAll = async(req,res) =>{
     try{
-        await User.findOneAndUpdate({_id: req.user._id},{tokens: []}) 
-        res.status(200).send()
+        await User.findOneAndUpdate({_id: req.user._id},{tokens: [],status:"Inactive"}) 
+        res.sendStatus(200)
     }catch(error){
         res.send({error: error.message})
     }   

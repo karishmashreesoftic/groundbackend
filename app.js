@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const userRouter = require("./routes/userRoutes");
 const ownerRouter = require("./routes/ownerRoutes");
 const commonRouter = require("./routes/commonRoutes");
+const adminRouter = require("./routes/adminRoutes");
 const dotenv = require("dotenv");
 dotenv.config({path:"config/config.env"})
 
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cors());
 
-
+app.use(adminRouter);
 app.use(userRouter);
 app.use(ownerRouter);
 app.use(commonRouter);

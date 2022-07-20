@@ -7,7 +7,6 @@ const client = require('twilio')(accountSid, authToken);
 const User = require("../../models/User")
 
 exports.sendOTP = async(req,res) => {
-
     try{
         const otp = await client.verify.services(process.env.TWILIO_SERVICE).verifications.create({to: req.body.mobile, channel: 'sms'})
         res.status(200).send("OK")
@@ -29,12 +28,12 @@ exports.verifyOTP = async(req,res) => {
                 user = new User({mobile: req.body.mobile, usertype: req.params.userType})
                 await user.save()
                 token = await user.generateAuthToken()
-                res.status(201).send({new:"true",user: user})
+                res.status(201).send({new:"true",user, token})
+            }else{
+                token = await user.generateAuthToken() 
+                res.status(201).send({new:"false",user, token})
             }
                 
-            token = await user.generateAuthToken() 
-            res.status(201).send({new:"false",user: user})
-
         }else{
             res.status(401).send()
         }

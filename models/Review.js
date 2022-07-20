@@ -20,7 +20,7 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    time:{
+    createdat:{
         type: Date,
         default: new Date()
     }

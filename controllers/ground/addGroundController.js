@@ -1,5 +1,7 @@
-const Ground = require("../../models/Ground")
+const Admin = require("../../models/Admin")
 const cloudinary = require("../../utils/cloudinary")
+const app  = require("../../utils/firebase")
+const {getMessaging} = require("firebase/messaging");
 // const LanguageDetect = require('languagedetect');
 // const lngDetector = new LanguageDetect();
 // lngDetector.setLanguageType("iso2")
@@ -44,23 +46,30 @@ exports.addGround = async(req, res) => {
                 photos: p_array
             }
 
-            const ground = new Ground(temp)
-            await ground.save()
+            var registrationToken = []
+            let admins = await Admin.find({})
+            for(let i=0; i<admins.length; i++){
+                registrationToken.push(admins[i].fcmtoken)
+            }
 
-            // if(lang!=='ar'){
-            //     let ground_ar = {
-            //         ...ground,
-            //         groundname: await translate.translate(ground.groundname,lang),
-            //         location: await translate.translate(ground.location,lang),
-            //         ownername: await translate.translate(ground.ownername,lang),
-            //         address: await translate.translate(ground.address,lang),
-            //         description: await translate.translate(ground.description,lang),
-            //     }
-            //     res.status(201).send(ground_ar)
-            // }
-                
+            data = {
+                sender: req.user, 
+                ground: temp,
+                message: `Owner ${req.user.name} sent you ground verification message`,
+                created: new Date()
+            }
 
-            res.status(201).send(ground)
+            var message = {
+                data: data,
+                tokens: registrationToken
+            };
+
+            const response = getMessaging(app).sendMulticast(message)
+        
+            if(response){
+                await Admin.updateMany({},{$inc: {'pendingapprovals' :1}})
+                res.sendStatus(200)
+            }
 
         }else{
             throw new Error("Only owners are allowed to perform this action")

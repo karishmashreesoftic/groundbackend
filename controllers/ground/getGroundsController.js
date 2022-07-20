@@ -63,7 +63,7 @@ exports.getGrounds = async(req, res) => {
         let data = req.body
         let query = {}
 
-        if(data!==null){
+        if(Object.keys(data).length!==0){
             // if(lang=='ar'){
             //     for(let i in data){
             //         if(i!=='price' && i!=='rating'){

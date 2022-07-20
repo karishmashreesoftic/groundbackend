@@ -51,7 +51,15 @@ const groundSchema = new mongoose.Schema({
         photothumbnail:{
           type: String,
         }
-    }]
+    }],
+    ownerid:{
+        type: Number,
+        default: 0
+    },
+    createdat:{
+        type: Date,
+        default: new Date()
+    }
 })
 
 const Ground = mongoose.model('Ground',groundSchema)

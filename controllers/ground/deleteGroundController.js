@@ -9,7 +9,8 @@ exports.deleteGround = async(req,res) => {
 
             const ground = await Ground.findOneAndDelete({_id:req.params.id})
             if(ground){
-
+                
+                await User.findByIdAndUpdate({_id: req.user._id, noofownedgrounds : {$gte : 1}},{$inc: {'noofownedgrounds' : -1}})
                 await Review.deleteMany({groundid: req.params.id})
                 for(let i in ground.photos){
                     cloudinary.uploader.destroy(ground.photos[i].photoid);
@@ -19,7 +20,7 @@ exports.deleteGround = async(req,res) => {
                 throw new Error("Ground not found !!")
             }
 
-            res.status(200).send()
+            res.sendStatus(200)
 
         }else{
             throw new Error("Only owners are allowed to perform this action")
