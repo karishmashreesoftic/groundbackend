@@ -23,9 +23,9 @@ exports.verifyOTP = async(req,res) => {
         let user;
         let token;
         if(otp.status==="approved"){
-            user = await User.findOne({mobile: String(req.body.mobile).substring(1,13), usertype: req.params.userType})
+            user = await User.findOne({mobile: req.body.mobile, usertype: req.params.userType})
             if(!user){
-                user = new User({mobile: req.body.mobile, usertype: req.params.userType})
+                user = new User({mobile: req.body.mobile, usertype: req.params.userType, createdat: new Date()})
                 await user.save()
                 token = await user.generateAuthToken()
                 res.status(201).send({new:"true",user, token})

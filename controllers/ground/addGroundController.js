@@ -1,15 +1,16 @@
 const Admin = require("../../models/Admin")
 const cloudinary = require("../../utils/cloudinary")
-const app  = require("../../utils/firebase")
-const {getMessaging} = require("firebase/messaging");
+// const app  = require("../../utils/firebase")
+// const {getMessaging} = require("firebase/messaging");
+// const { translate } = require("../../utils/translate")
 // const LanguageDetect = require('languagedetect');
 // const lngDetector = new LanguageDetect();
 // lngDetector.setLanguageType("iso2")
 const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
-// const { translate } = require("../../utils/translate")
 const dotenv = require("dotenv");
+const AdminNotification = require("../../models/AdminNotification");
 dotenv.config({path:"config/config.env"})
 
 exports.addGround = async(req, res) => {
@@ -18,7 +19,7 @@ exports.addGround = async(req, res) => {
 
         if(req.user.usertype==="owner"){
 
-            const data = req.body
+            let data = req.body
             // const lang = process.env.LANGUAGE
 
             let p_array = []
@@ -46,27 +47,37 @@ exports.addGround = async(req, res) => {
                 photos: p_array
             }
 
-            var registrationToken = []
-            let admins = await Admin.find({})
-            for(let i=0; i<admins.length; i++){
-                registrationToken.push(admins[i].fcmtoken)
-            }
+            // var registrationToken = []
+            // let admins = await Admin.find({})
+            // for(let i=0; i<admins.length; i++){
+            //     registrationToken.push(admins[i].fcmtoken)
+            // }
+
+            // data = {
+            //     sender: req.user, 
+            //     ground: temp,
+            //     message: `Owner ${req.user.name.charAt(0).toUpperCase()}${req.user.name.slice(1)} sent you ground verification message`,
+            // }
 
             data = {
                 sender: req.user, 
                 ground: temp,
                 message: `Owner ${req.user.name} sent you ground verification message`,
-                created: new Date()
             }
 
-            var message = {
+            var payload = {
                 data: data,
-                tokens: registrationToken
+                // tokens: registrationToken
             };
 
-            const response = getMessaging(app).sendMulticast(message)
+            const m = new AdminNotification({...payload, createdat: new Date()})
+            await m.save()
+
+            // const response = await admin.messaging().sendToDevice(registrationToken, payload)
+            // console.log("response...",response)
+            // const response = getMessaging(app).sendMulticast(message)
         
-            if(response){
+            if(m){
                 await Admin.updateMany({},{$inc: {'pendingapprovals' :1}})
                 res.sendStatus(200)
             }

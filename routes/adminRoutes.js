@@ -8,6 +8,7 @@ const { adminShowOwners } = require("../controllers/admin/adminShowOwnersControl
 const { adminLogout } = require("../controllers/admin/adminLogoutController");
 const { adminRandR } = require("../controllers/admin/adminRandRController");
 const { newGroundRequest } = require("../controllers/admin/newGroundRequestController.js");
+const { adminNotifications } = require("../controllers/admin/adminNotificationController")
 
 const adminRouter = Router();
 
@@ -15,13 +16,15 @@ const adminRouter = Router();
 adminRouter.post("/adminsignup", adminSignup)
 adminRouter.post("/adminlogin", adminLogin)
 
-adminRouter.get("/dashboard", adminauth, dashboard)
-adminRouter.post("/adminshowusers", adminauth, adminShowUsers)
-adminRouter.post("/adminshowowners", adminauth, adminShowOwners)
-adminRouter.post("/adminreviewandrating", adminauth, adminRandR)
+adminRouter.get("/dashboard", dashboard)
+adminRouter.post("/adminshowusers", adminShowUsers)
+adminRouter.post("/adminshowowners", adminShowOwners)
+adminRouter.post("/adminreviewandrating", adminRandR)
+adminRouter.post("/adminnotifications", adminNotifications)
 
-adminRouter.post("/verifiedground", adminauth, newGroundRequest)
+adminRouter.post("/verifiedground", newGroundRequest)
 
+adminRouter.get("/adminlogoutall", adminauth, adminLogout)
 adminRouter.get("/adminlogout", adminauth, adminLogout)
 
 

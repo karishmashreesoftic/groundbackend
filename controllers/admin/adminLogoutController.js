@@ -5,7 +5,7 @@ exports.adminLogout = async(req,res) =>{
         const updated_tokens = req.admin.tokens.filter((token) => {
             return token.token !== req.token
         })
-        await Admin.findByIdAndUpdate({_id: req.admin._id},{tokens: updated_tokens, lasttimeloggedout: new Date(), newuserclicked: null})    
+        await Admin.findByIdAndUpdate({_id: req.admin._id},{tokens: updated_tokens, lasttimeloggedout: new Date(), newuserclicked: null, newownerclicked: null})    
         res.sendStatus(200)
     }catch(error){
         res.send({error: error.message})
@@ -14,7 +14,7 @@ exports.adminLogout = async(req,res) =>{
 
 exports.logoutAll = async(req,res) =>{
     try{
-        await Admin.findByIdAndUpdate({_id: req.admin._id},{tokens: [], lasttimeloggedout: new Date(), newuserclicked: null})
+        await Admin.findByIdAndUpdate({_id: req.admin._id},{tokens: [], lasttimeloggedout: new Date(), newuserclicked: null, newownerclicked: null})
         res.sendStatus(200)
     }catch(error){
         res.send({error: error.message})

@@ -1,12 +1,11 @@
 // const { translate } = require("../../utils/translate")
-const {getMessaging} = require("firebase/messaging");
-const app = require("../../utils/firebase")
+// const {getMessaging} = require("firebase/messaging");
+// const admin = require("../../utils/firebase")
 const dotenv = require("dotenv");
 const Ground = require("../../models/Ground");
 const Team = require("../../models/Team");
 const User = require("../../models/Team");
 dotenv.config({path:"config/config.env"})
-
 
 exports.sendNotification = async(req, res) => {
     try{
@@ -53,17 +52,27 @@ exports.sendNotification = async(req, res) => {
                 break;
         }
 
-        var message = {
-            data: data,
-            tokens: registrationToken
-        };
+        // var message = {
+        //     data: data,
+        //     tokens: registrationToken
+        // };
 
-        const response = getMessaging(app).sendMulticast(message)
-        
-        if(response){
-            res.sendStatus(200)
+        var payload = {
+            data: data
         }
 
+        const n = new Notification({...payload, createdat: data.created})
+        await n.save()
+
+        // const reponse = await admin.messaging.sendToDevice(registrationToken, payload)
+        // const response = getMessaging(app).sendMulticast(message)
+        
+        // if(response){
+        //     res.sendStatus(200)
+        // }
+
+        res.sendStatus(200)
+        
         // process.env["LANGUAGE"] = req.body.lang;
         // res.status(200).send({lang: process.env.LANGUAGE})
 

@@ -10,10 +10,11 @@ exports.dashboard = async(req, res) => {
         const totalowners = await User.find({usertype: "owner"}).count()
         const totalnewusers = await User.find({usertype: "user",createdat: {$gte: startOfDay(today), $lte: endOfDay(today)}}).count()
         const totalnewowners = await User.find({usertype: "owner",createdat: {$gte: startOfDay(today), $lte: endOfDay(today)}}).count()
-        const pendingapprovals = await Admin.find({}).select('pendingapprovals').limit(1);
+        const approvals = await Admin.find({}).select('pendingapprovals').limit(1);
         const apprating = 0;
 
-        res.status(201).send({totalusers, totalowners, totalnewusers, totalnewowners, pendingapprovals, apprating})
+
+        res.status(201).send({totalusers, totalowners, totalnewusers, totalnewowners, pendingapprovals: approvals[0].pendingapprovals, apprating})
 
     }catch(error){
         res.send({error: error.message})

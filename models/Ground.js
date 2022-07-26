@@ -52,7 +52,7 @@ const groundSchema = new mongoose.Schema({
           type: String,
         }
     }],
-    ownerid:{
+    nooftimebooked:{
         type: Number,
         default: 0
     },

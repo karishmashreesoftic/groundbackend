@@ -2,8 +2,9 @@ const Ground = require("../models/Ground")
 const Admin = require("../models/Admin")
 const Review = require("../models/Review")
 const User = require("../models/User")
-const app = require("../utils/firebase")
-const {getMessaging} = require("firebase/messaging");
+const AdminNotification = require("../models/AdminNotification")
+// const app = require("../utils/firebase")
+// const {getMessaging} = require("firebase/messaging");
 
 exports.deleteAccount = async(req,res) => {
     try{
@@ -21,36 +22,31 @@ exports.deleteAccount = async(req,res) => {
                     }
                 }
             }
-
-            var registrationToken = []
-            let admins = await Admin.find({})
-            for(let i=0; i<admins.length; i++){
-                registrationToken.push(admins[i].fcmtoken)
-            }
-
-            data = {
-                account: account,
-                message: `${account.usertype} ${account.name} has been deactivated`,
-                created: new Date()
-            }
-
-            var message = {
-                data: data,
-                tokens: registrationToken
-            };
-            
-            const response = await getMessaging(app).sendMulticast(message)
-
-            console.log("response...",response)
-        
-            if(response){
-                res.sendStatus(200)
-            }
-
             
         }else{
             throw new Error("Account not found !!")
         }
+
+        // var registrationToken = []
+        // let admins = await Admin.find({})
+        // for(let i=0; i<admins.length; i++){
+        //     registrationToken.push(admins[i].fcmtoken)
+        // }
+
+        data = {
+            account: account,
+            message: `${account.usertype.charAt(0).toUpperCase()}${account.usertype.slice(1)} ${account.name.charAt(0).toUpperCase()}${account.name.slice(1)} has been deactivated`,
+        }
+
+        var payload = {
+            data: data,
+            // tokens: registrationToken
+        };
+
+        // const response = await admin.messaging().sendToDevice(registrationToken,payload)
+        // const response = await getMessaging(app).sendMulticast(message)
+        const m = new AdminNotification({...payload, createdat: new Date(), status: "delivered"})
+        await m.save()
 
         res.sendStatus(200)
 

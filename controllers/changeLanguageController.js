@@ -5,7 +5,7 @@ exports.changeLanguage = async(req, res) => {
     try{
 
         process.env["LANGUAGE"] = req.body.lang;
-        res.status(201).send({lang: process.env.LANGUAGE})
+        res.status(200).send({lang: process.env.LANGUAGE})
 
     }catch(error){
         res.send({error: error.message})

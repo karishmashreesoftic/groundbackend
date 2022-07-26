@@ -1,4 +1,5 @@
 const Review = require("../../models/Review")
+// const moment = require('moment')
 const { startOfDay, endOfDay } = require("date-fns")
 
 exports.adminRandR = async(req, res) => {
@@ -11,6 +12,8 @@ exports.adminRandR = async(req, res) => {
         if(Object.keys(data).length!==0){
             if(data.date){
                 let d = new Date(data.date)
+                // console.log("startOfDay(d)...",moment(d).startOf('day'))
+                // console.log("endOfDay(d)...",moment(d).endOf('day'))
                 q.push({createdat: { $gte: startOfDay(d), $lte: endOfDay(d)}})
             }
             if(data.sports){

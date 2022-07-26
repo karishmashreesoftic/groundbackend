@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     fcmtoken:{
-        type: String
+        type: String,
+        default: null
     },
     noofbooking:{
         type: Number,
