@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     },
     name:{
         type: String,
+        default: "Marcus Henry"
     },
     mobile:{
         type: Number,

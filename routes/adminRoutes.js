@@ -8,7 +8,8 @@ const { adminShowOwners } = require("../controllers/admin/adminShowOwnersControl
 const { adminLogout } = require("../controllers/admin/adminLogoutController");
 const { adminRandR } = require("../controllers/admin/adminRandRController");
 const { newGroundRequest } = require("../controllers/admin/newGroundRequestController.js");
-const { adminNotifications } = require("../controllers/admin/adminNotificationController")
+const { adminNotifications } = require("../controllers/admin/adminNotificationController");
+const { adminDeleteAccount } = require("../controllers/admin/adminDeleteController");
 
 const adminRouter = Router();
 
@@ -26,6 +27,8 @@ adminRouter.post("/verifiedground", newGroundRequest)
 
 adminRouter.get("/adminlogoutall", adminauth, adminLogout)
 adminRouter.get("/adminlogout", adminauth, adminLogout)
+
+adminRouter.delete("/admindelete/:id", adminDeleteAccount)
 
 
 module.exports = adminRouter;

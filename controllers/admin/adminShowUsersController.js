@@ -26,7 +26,7 @@ async function findData(data, req){
 exports.adminShowUsers = async(req, res) => {
     try{
 
-        let data = req.body
+        let data = await req.body
         let query = {usertype: "user"}
 
         if(Object.keys(data).length!==0){

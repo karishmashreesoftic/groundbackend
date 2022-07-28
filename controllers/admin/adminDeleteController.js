@@ -1,15 +1,15 @@
-const Ground = require("../models/Ground")
-const Admin = require("../models/Admin")
-const Review = require("../models/Review")
-const User = require("../models/User")
-const AdminNotification = require("../models/AdminNotification")
+const Ground = require("../../models/Ground")
+const Admin = require("../../models/Admin")
+const Review = require("../../models/Review")
+const User = require("../../models/User")
+const AdminNotification = require("../../models/AdminNotification")
 // const app = require("../utils/firebase")
 // const {getMessaging} = require("firebase/messaging");
 
-exports.deleteAccount = async(req,res) => {
+exports.adminDeleteAccount = async(req,res) => {
     try{
 
-        const account = await User.findOneAndDelete({_id: req.user._id},{new: true})
+        const account = await User.findOneAndDelete({_id: req.params.id},{new: true})
 
         if(account){
 
