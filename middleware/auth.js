@@ -11,11 +11,9 @@ exports.auth = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         let user;
         user = await User.findOne({_id:decoded._id, 'tokens.token': token})
+
         if(!user){
-            user = await Member.findOne({_id:decoded._id, 'tokens.token': token})
-            if(!user){
-                throw new Error()
-            }
+            throw new Error()
         }
 
         req.token = token
